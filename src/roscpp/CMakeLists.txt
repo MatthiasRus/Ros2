@@ -8,6 +8,15 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+ament_export_dependencies(rclcpp)
+
+#add_executable(arm_cpp_node src/arm_cpp_node.cpp)
+#ament_target_dependencies(arm_cpp_node rclcpp)
+
+#install(TARGETS
+#  arm_cpp_node
+#  DESTINATION lib/${PROJECT_NAME}
+#)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
