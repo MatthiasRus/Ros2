@@ -7,6 +7,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(arm_interface REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 
@@ -16,13 +17,19 @@ add_executable(
   PublisherNode src/publisher_node.cpp)
 add_executable(
   SubscriberNode src/subscriber_node.cpp)
+  add_executable(ServoPublisherNode src/servo_publisher.cpp)
+add_executable(ServoSubscriberNode src/servo_subscriber.cpp)
+  ament_target_dependencies( PublisherNode std_msgs rclcpp)
 
-  ament_target_dependencies(PublisherNode std_msgs rclcpp)
-ament_target_dependencies(SubscriberNode std_msgs rclcpp)
+  ament_target_dependencies(SubscriberNode  std_msgs rclcpp)
+ament_target_dependencies( ServoPublisherNode rclcpp arm_interface)
+ament_target_dependencies(ServoSubscriberNode  rclcpp arm_interface)
 
 install(TARGETS
   PublisherNode
   SubscriberNode
+  ServoPublisherNode
+  ServoSubscriberNode
   DESTINATION lib/${PROJECT_NAME}
 )
 
