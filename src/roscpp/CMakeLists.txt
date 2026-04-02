@@ -17,11 +17,13 @@ add_executable(
   PublisherNode src/publisher_node.cpp)
 add_executable(
   SubscriberNode src/subscriber_node.cpp)
+
   add_executable(ServoPublisherNode src/servo_publisher.cpp)
 add_executable(ServoSubscriberNode src/servo_subscriber.cpp)
-  ament_target_dependencies( PublisherNode std_msgs rclcpp)
 
+  ament_target_dependencies(PublisherNode std_msgs rclcpp)
   ament_target_dependencies(SubscriberNode  std_msgs rclcpp)
+
 ament_target_dependencies( ServoPublisherNode rclcpp arm_interface)
 ament_target_dependencies(ServoSubscriberNode  rclcpp arm_interface)
 

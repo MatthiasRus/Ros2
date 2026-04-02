@@ -4,9 +4,9 @@
 
 class ServoSubscriberNode : public rclcpp::Node {
 public:
-    ServoSubscriberNode() : Node("ServoSubscriberNode"){
+    ServoSubscriberNode() : Node("servo_subscriber"){
         subscriber_ = this->create_subscription<arm_interface::msg::ServoCommand>(
-            "ServoCommand",
+            "servo_command",
             10,
              [this](const arm_interface::msg::ServoCommand::SharedPtr msg){
                 this->callback_message(msg);
