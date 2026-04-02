@@ -5,6 +5,9 @@
 class ServoPublisherNode : public rclcpp::Node{
     public:
         ServoPublisherNode() : Node("ServoPublisherNode"){
+            this->declare_parameter("channel",1);
+            this->declare_parameter("pulse", 1800);
+            
             publisher_ = this->create_publisher<arm_interface::msg::ServoCommand>("ServoCommand", 10);
             timer_     = this->create_wall_timer(
                 std::chrono::milliseconds(1000),
@@ -15,8 +18,8 @@ class ServoPublisherNode : public rclcpp::Node{
     private:
         void timer_callback(){
                 auto msg = arm_interface::msg::ServoCommand();
-                msg.channel = 1;
-                msg.pulse = 1800;
+                msg.channel = this->get_parameter("channel").as_int();
+                msg.pulse = this->get_parameter("pulse").as_int();
                 publisher_->publish(msg);
                 RCLCPP_INFO(this->get_logger(), "Published : channel : %d <-> pulse : %d", msg.channel, msg.pulse);
 
@@ -24,7 +27,6 @@ class ServoPublisherNode : public rclcpp::Node{
 
         rclcpp::Publisher<arm_interface::msg::ServoCommand>::SharedPtr publisher_;
         rclcpp::TimerBase::SharedPtr timer_;
-
 };
 
 int main(int argc, char *argv[]){
