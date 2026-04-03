@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(arm_interface REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 
 ament_export_dependencies(rclcpp)
 
@@ -18,11 +19,14 @@ add_executable(
 add_executable(
   SubscriberNode src/subscriber_node.cpp)
 
-  add_executable(ServoPublisherNode src/servo_publisher.cpp)
+add_executable(ServoPublisherNode src/servo_publisher.cpp)
 add_executable(ServoSubscriberNode src/servo_subscriber.cpp)
 
 add_executable(GripperServerNode src/gripper_server.cpp)
 add_executable(GripperClientNode src/gripper_client.cpp)
+
+add_executable(GripperActionServer src/gripper_action_server.cpp)
+add_executable(GripperActionClient src/gripper_action_client.cpp)
 
   ament_target_dependencies(PublisherNode std_msgs rclcpp)
   ament_target_dependencies(SubscriberNode  std_msgs rclcpp)
@@ -31,7 +35,8 @@ ament_target_dependencies( ServoPublisherNode rclcpp arm_interface)
 ament_target_dependencies(ServoSubscriberNode  rclcpp arm_interface)
 ament_target_dependencies(GripperServerNode rclcpp arm_interface)
 ament_target_dependencies(GripperClientNode rclcpp arm_interface)
-
+ament_target_dependencies(GripperActionServer rclcpp rclcpp_action arm_interface)
+ament_target_dependencies(GripperActionClient rclcpp rclcpp_action arm_interface)
 install(TARGETS
   PublisherNode
   SubscriberNode
@@ -39,6 +44,8 @@ install(TARGETS
   ServoSubscriberNode
   GripperServerNode
   GripperClientNode
+  GripperActionServer
+  GripperActionClient
   DESTINATION lib/${PROJECT_NAME}
 )
 install(DIRECTORY launch
