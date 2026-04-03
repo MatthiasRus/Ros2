@@ -21,17 +21,24 @@ add_executable(
   add_executable(ServoPublisherNode src/servo_publisher.cpp)
 add_executable(ServoSubscriberNode src/servo_subscriber.cpp)
 
+add_executable(GripperServerNode src/gripper_server.cpp)
+add_executable(GripperClientNode src/gripper_client.cpp)
+
   ament_target_dependencies(PublisherNode std_msgs rclcpp)
   ament_target_dependencies(SubscriberNode  std_msgs rclcpp)
 
 ament_target_dependencies( ServoPublisherNode rclcpp arm_interface)
 ament_target_dependencies(ServoSubscriberNode  rclcpp arm_interface)
+ament_target_dependencies(GripperServerNode rclcpp arm_interface)
+ament_target_dependencies(GripperClientNode rclcpp arm_interface)
 
 install(TARGETS
   PublisherNode
   SubscriberNode
   ServoPublisherNode
   ServoSubscriberNode
+  GripperServerNode
+  GripperClientNode
   DESTINATION lib/${PROJECT_NAME}
 )
 install(DIRECTORY launch
