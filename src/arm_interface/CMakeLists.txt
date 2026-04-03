@@ -26,6 +26,7 @@ endif()
 rosidl_generate_interfaces(${PROJECT_NAME}
   "action/MoveToPosition.action"
   "msg/ServoCommand.msg"
+  "srv/ServoGripper.srv"
   )
 
 ament_package()
