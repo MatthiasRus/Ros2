@@ -32,6 +32,8 @@ add_executable(GripperActionServer src/gripper_action_server.cpp)
 add_executable(GripperActionClient src/gripper_action_client.cpp)
 
 add_executable(TF2ListenerNode src/tf2_listener.cpp)
+add_executable(TF2BroadcasterNode src/tf2_broadcaster.cpp)
+
   ament_target_dependencies(PublisherNode std_msgs rclcpp)
   ament_target_dependencies(SubscriberNode  std_msgs rclcpp)
 
@@ -42,7 +44,7 @@ ament_target_dependencies(GripperClientNode rclcpp arm_interface)
 ament_target_dependencies(GripperActionServer rclcpp rclcpp_action arm_interface)
 ament_target_dependencies(GripperActionClient rclcpp rclcpp_action arm_interface)
 ament_target_dependencies(TF2ListenerNode tf2 tf2_ros rclcpp geometry_msgs)
-
+ament_target_dependencies(TF2BroadcasterNode tf2 tf2_ros rclcpp geometry_msgs)
 
 install(TARGETS
   PublisherNode
@@ -54,7 +56,7 @@ install(TARGETS
   GripperActionServer
   GripperActionClient
   TF2ListenerNode
-
+  TF2BroadcasterNode
   DESTINATION lib/${PROJECT_NAME}
 )
 install(DIRECTORY launch
