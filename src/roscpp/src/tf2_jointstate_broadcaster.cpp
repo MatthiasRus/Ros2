@@ -13,9 +13,13 @@
 class TFJointStateBroadcaster : public rclcpp::Node {
 public:
     TFJointStateBroadcaster() : Node("tf_joint_state_broadcaster") {
+        auto qos_js = rclcpp::QoS(10).
+                      reliability(rclcpp::ReliabilityPolicy::BestEffort).
+                      durability(rclcpp::DurabilityPolicy::Volatile);
+
         js_sub_ = this->create_subscription<sensor_msgs::msg::JointState>(
             "/joint_states", 
-            10,
+            qos_js,
             [this](const sensor_msgs::msg::JointState::SharedPtr joint_state){this->callback_handle(joint_state);}
         );
         js_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
