@@ -23,7 +23,7 @@ add_executable(
   PublisherNode src/publisher_node.cpp)
 add_executable(
   SubscriberNode src/subscriber_node.cpp)
-
+add_executable(MultiThreadedExecutor src/executor_demo.cpp)
 add_executable(ServoPublisherNode src/servo_publisher.cpp)
 add_executable(ServoSubscriberNode src/servo_subscriber.cpp)
 
@@ -40,6 +40,7 @@ add_executable(TFJointStateBroadcaster src/tf2_jointstate_broadcaster)
 
   ament_target_dependencies(PublisherNode std_msgs rclcpp)
   ament_target_dependencies(SubscriberNode  std_msgs rclcpp)
+  ament_target_dependencies(MultiThreadedExecutor std_msgs rclcpp)
 
 ament_target_dependencies( ServoPublisherNode rclcpp arm_interface)
 ament_target_dependencies(ServoSubscriberNode  rclcpp arm_interface)
@@ -54,6 +55,7 @@ ament_target_dependencies(TFJointStateBroadcaster tf2 tf2_ros rclcpp geometry_ms
 install(TARGETS
   PublisherNode
   SubscriberNode
+  MultiThreadedExecutor
   ServoPublisherNode
   ServoSubscriberNode
   GripperServerNode
