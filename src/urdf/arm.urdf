@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<robot name="robotic_arm">
+
+  <link name="world"/>
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.08 0.09 0.073"/>
+      </geometry> 
+      <origin xyz="0 0 0.0365" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.08 0.09 0.073"/>
+      </geometry> 
+      <origin xyz="0 0 0.0365" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="link_1">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.022"/>
+      </geometry>
+      <origin xyz="0 0 0.011" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.022"/>
+      </geometry>
+      <origin xyz="0 0 0.011" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <link name="link_2">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.105"/>
+      </geometry>
+      <origin xyz="0 0 0.0525" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.105"/>
+      </geometry>
+      <origin xyz="0 0 0.0525" rpy="0 0 0"/>
+    </collision>
+  </link>
+  
+  <link name="link_3">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.145"/>
+      </geometry>
+      <origin xyz="0 0 0.0725" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.145"/>
+      </geometry>
+      <origin xyz="0 0 0.0725" rpy="0 0 0"/>
+    </collision>
+  </link>
+  
+  <link name="link_4">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.065"/>
+      </geometry>
+      <origin xyz="0 0 0.0325" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.065"/>
+      </geometry>
+      <origin xyz="0 0 0.0325" rpy="0 0 0"/>
+    </collision>
+  </link>
+ 
+  <link name="link_5">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.03"/>
+      </geometry>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+    </visual>  
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.03"/>
+      </geometry>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+    </collision>  
+  </link>
+
+  <link name="end_effector">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.11"/>
+      </geometry> 
+      <origin xyz="0 0 0.055" rpy="0 0 0"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.11"/>
+      </geometry> 
+      <origin xyz="0 0 0.055" rpy="0 0 0"/> 
+    </collision>
+  </link>
+
+  <joint name="world_to_base" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link_1"/>
+    <origin xyz="0 0 0.073" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <joint name="joint_2" type="revolute">
+    <parent link="link_1"/>
+    <child link="link_2"/>
+    <origin xyz="0 0 0.022" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <joint name="joint_3" type="revolute">
+    <parent link="link_2"/>
+    <child link="link_3"/>
+    <origin xyz="0 0 0.105" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <joint name="joint_4" type="revolute">
+    <parent link="link_3"/>
+    <child link="link_4"/>
+    <origin xyz="0 0 0.145" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <joint name="joint_5" type="revolute">
+    <parent link="link_4"/>
+    <child link="link_5"/>
+    <origin xyz="0 0 0.065" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <joint name="gripper" type="revolute">
+    <parent link="link_5"/>
+    <child  link="end_effector"/>
+    <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="0.785" effort="10.0" velocity="1.0"/>
+  </joint>
+ <ros2_control name="FakeSystem" type="system">
+  <hardware>
+    <plugin>fake_components/GenericSystem</plugin>
+    <param name="fake_sensor_commands">true</param>
+  </hardware>
+  <joint name="joint_1">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+  <joint name="joint_2">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+  <joint name="joint_3">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+  <joint name="joint_4">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+  <joint name="joint_5">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+  <joint name="gripper">
+    <command_interface name="position"/>
+    <state_interface name="position"/>
+    <state_interface name="velocity"/>
+  </joint>
+</ros2_control>
+</robot>
